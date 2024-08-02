@@ -179,6 +179,7 @@ vsim-all: .opt-rtl
 # vcs testbench compilation
 
 vcsify: $(RTLSRC_PKG) $(RTLSRC) $(RTLSRC_TB_PKG) $(RTLSRC_TB) remote_bitbang/librbs_vcs.so
+	bender update
 	$(VCS) +vc -sverilog -race=all -ignore unique_checks -full64 \
 		-timescale=1ns/1ps -assert svaext \
 		-CC "$(if $(VCS_HOME),-I$(VCS_HOME)/include,) -O3 -march=native" $(VCS_FLAGS) \
@@ -332,7 +333,14 @@ vcs-run-gui: vcsify prog/test.hex
 	./simv -sv_lib remote_bitbang/librbs_vcs $(SIMV_FLAGS) -gui "+firmware=prog/test.hex"
 
 # general targets
-.PHONY: clean
+.PHONY: clean rtl-clean
+rtl-clean:
+	rm -rf common_cells
+	rm -rf fpnew
+	rm -rf riscv
+	rm -rf tech_cells_generic
+	rm -rf .bender
+
 clean: vsim-clean verilate-clean vcs-clean rbs-clean prog-clean
 
 .PHONY: distclean

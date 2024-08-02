@@ -2,7 +2,10 @@
 
 set -e
 
-VERSION="af3a034b57279d2a400d87e7508c9a92254ec165"
+# Can't install version
+#VERSION="af3a034b57279d2a400d87e7508c9a92254ec165"
+# Can be able to run version, but not 
+VERSION="41b9c69e92d9660cb2eff508f3bc8218a3b3e461"
 
 mkdir -p $RISCV/
 cd $RISCV
