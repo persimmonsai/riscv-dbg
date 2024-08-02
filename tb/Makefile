@@ -45,7 +45,7 @@ VSIM_SCRIPT_BATCH	= vsim_batch.tcl
 VSIM_SCRIPT_GUI		= vsim_gui.tcl
 
 VCS			= vcs
-VCS_HOME		=
+VCS_HOME		?= 
 VCS_FLAGS		=
 SIMV_FLAGS		=
 
