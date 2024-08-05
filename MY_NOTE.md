@@ -16,13 +16,23 @@ export PATH=$RISCV/bin:$PATH
 ```sh
 cd tb
 # bender update
-make vcs-run VCS_FLAGS="-debug_all"
+make vcs-run VCS_FLAGS="-debug_access+all"
+# make vcs-run VCS_FLAGS="-debug_access+all" SIMV_FLAGS="+verbose"
 ```
 
 2nd Terminal
 ```sh
 cd tb
 export JTAG_VPI_PORT=9999
-openocd -f dm_compliance_test.cfg
-openocd -f dm_debug.cfg
+# To run test compliance (OK)
+openocd -f dm_compliance_test.cfg |& tee "dm_compliance_test.log"
+# To run debugging of test program (Can't connect openocd with gdb) 
+openocd -f dm_debug.cfg |& tee "dm_debug.log"
+```
+
+3th Terminal
+```sh
+# Can't connect to target and download .elf program via gdb in the simulation
+riscv32-unknown-elf-gdb -ex "target extended-remote :3333"
+# riscv32-unknown-elf-gdb -x elf_run.gdb $1 &
 ```

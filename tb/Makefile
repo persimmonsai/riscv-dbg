@@ -177,9 +177,11 @@ vsim-all: .opt-rtl
 	touch .opt-rtl
 
 # vcs testbench compilation
-
-vcsify: $(RTLSRC_PKG) $(RTLSRC) $(RTLSRC_TB_PKG) $(RTLSRC_TB) remote_bitbang/librbs_vcs.so
+.PHONY: update-bender
+update-bender:
 	bender update
+
+vcsify: update-bender $(RTLSRC_PKG) $(RTLSRC) $(RTLSRC_TB_PKG) $(RTLSRC_TB) remote_bitbang/librbs_vcs.so
 	$(VCS) +vc -sverilog -race=all -ignore unique_checks -full64 \
 		-timescale=1ns/1ps -assert svaext \
 		-CC "$(if $(VCS_HOME),-I$(VCS_HOME)/include,) -O3 -march=native" $(VCS_FLAGS) \
@@ -341,7 +343,7 @@ rtl-clean:
 	rm -rf tech_cells_generic
 	rm -rf .bender
 
-clean: vsim-clean verilate-clean vcs-clean rbs-clean prog-clean
+clean: vsim-clean verilate-clean vcs-clean rbs-clean prog-clean rtl-clean
 
 .PHONY: distclean
 distclean: clean

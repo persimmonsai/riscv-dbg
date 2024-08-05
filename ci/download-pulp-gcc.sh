@@ -10,3 +10,6 @@ VERSION="v1.0.16"
 wget https://github.com/pulp-platform/pulp-riscv-gnu-toolchain/releases/download/$VERSION/$VERSION-pulp-riscv-gcc-ubuntu-18.tar.bz2
 echo "unpacking pulp gcc and installing to $RISCV"
 tar -xvf $VERSION-pulp-riscv-gcc-ubuntu-18.tar.bz2 -C "$RISCV" --strip 1
+
+# Remove tar file after install
+rm $VERSION-pulp-riscv-gcc-ubuntu-18.tar.bz2
