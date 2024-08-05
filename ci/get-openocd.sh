@@ -7,6 +7,8 @@ set -e
 # Can be able to run version, but not 
 VERSION="41b9c69e92d9660cb2eff508f3bc8218a3b3e461"
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 mkdir -p $RISCV/
 cd $RISCV
 
@@ -16,7 +18,6 @@ check_version() {
 	exit 1
     )
 }
-
 
 if [ -z ${NUM_JOBS} ]; then
     NUM_JOBS=1
@@ -36,6 +37,8 @@ if ! [ -e $RISCV/bin/openocd ]; then
     echo "Compiling OpenOCD"
     ./bootstrap
     ./configure --prefix=$RISCV --disable-werror --disable-wextra --enable-remote-bitbang
+    patch -p1 < ${SCRIPT_DIR}/openocd.patch
+
     make -j${NUM_JOBS}
     make install
     echo "Compilation Finished"
