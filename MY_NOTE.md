@@ -32,7 +32,13 @@ openocd -f dm_debug.cfg |& tee "dm_debug.log"
 
 3th Terminal
 ```sh
+riscv32-unknown-elf-gdb prog/test.elf
+# In GDB
+target remote localhost:3333
+monitor reset halt
+load
+continue
 # Can't connect to target and download .elf program via gdb in the simulation
-riscv32-unknown-elf-gdb -ex "target extended-remote :3333"
+# riscv32-unknown-elf-gdb -ex "target extended-remote :3333"
 # riscv32-unknown-elf-gdb -x elf_run.gdb $1 &
 ```
