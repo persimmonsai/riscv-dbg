@@ -186,6 +186,7 @@ vcsify: update-bender $(RTLSRC_PKG) $(RTLSRC) $(RTLSRC_TB_PKG) $(RTLSRC_TB) remo
 		-timescale=1ns/1ps -assert svaext \
 		-CC "$(if $(VCS_HOME),-I$(VCS_HOME)/include,) -O3 -march=native" $(VCS_FLAGS) \
 		$(RTLSRC_PKG) $(RTLSRC) $(RTLSRC_TB_PKG) $(RTLSRC_TB) \
+		remote_bitbang/librbs_vcs.so \
 		$(addprefix +incdir+,$(RTLSRC_INCDIR))
 
 vcs-clean:
@@ -327,7 +328,8 @@ vsim-run-gui: vsim-tb-run-gui
 
 .PHONY: vcs-run
 vcs-run: vcsify prog/test.hex
-	./simv -sv_lib remote_bitbang/librbs_vcs $(SIMV_FLAGS) "+firmware=prog/test.hex"
+	./simv $(SIMV_FLAGS) "+firmware=prog/test.hex"
+#	./simv -sv_lib remote_bitbang/librbs_vcs $(SIMV_FLAGS) "+firmware=prog/test.hex"
 
 .PHONY: vcs-run-gui
 vcs-run-gui: VCS_FLAGS+=-debug_all

@@ -216,9 +216,16 @@ module tb_test_env #(
       .tests_failed_o(tests_failed_o)
   );
 
+  localparam logic [15:0] PartNum = 2;
+  localparam logic [31:0] IDCode = (dm::DbgVersion013 << 28) | (PartNum << 12) | 32'h1;
+
+  initial begin
+    $display("JTAG IDCode = %h", IDCode);
+  end
+
   // debug subsystem
   dmi_jtag #(
-      .IdcodeValue(32'h249511C3)
+      .IdcodeValue(IDCode)
   ) i_dmi_jtag (
       .clk_i           (clk_i),
       .rst_ni          (rst_ni),

@@ -42,3 +42,8 @@ continue
 # riscv32-unknown-elf-gdb -ex "target extended-remote :3333"
 # riscv32-unknown-elf-gdb -x elf_run.gdb $1 &
 ```
+
+Tips : Use the below command to list of port that is using currently if port forwarding is not working.
+```sh
+lsof -i -P -n
+```
