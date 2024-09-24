@@ -145,11 +145,13 @@ RTLSRC_VOPT_TB_TOP	:= $(addsuffix _vopt, $(RTLSRC_VLOG_TB_TOP))
 
 # riscv bare metal cross compiling
 RISCV			?= $(HOME)/.riscv
-RV_CC			= $(RISCV)/bin/riscv32-unknown-elf-gcc
+#RV_CC			= $(RISCV)/bin/riscv32-unknown-elf-gcc
+RV_CC			= riscv32-unknown-elf-gcc
 RV_CFLAGS		= -march=rv32imc -Os -g
 RV_LDFLAGS		= -nostdlib -static -T prog/link.ld
 RV_LDLIBS		= -lc -lm -lgcc
-RV_OBJCOPY		= $(RISCV)/bin/riscv32-unknown-elf-objcopy
+#RV_OBJCOPY		= $(RISCV)/bin/riscv32-unknown-elf-objcopy
+RV_OBJCOPY		= riscv32-unknown-elf-objcopy
 
 # assume verilator if no target chosen
 .DEFAULT_GOAL := veri-run
